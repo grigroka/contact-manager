@@ -2,11 +2,19 @@ import React, { Component } from 'react';
 
 export default class Test extends Component {
   state = {
-    test: 'test'
+    title: '',
+    body: ''
   };
 
   componentDidMount() {
-    console.log('componentDidMount');
+    fetch('https://jsonplaceholder.typicode.com/posts/1')
+      .then(response => response.json())
+      .then(data =>
+        this.setState({
+          title: data.title,
+          body: data.body
+        })
+      );
   }
 
   // Deprecated
@@ -14,9 +22,9 @@ export default class Test extends Component {
   //   console.log('componentWillMount');
   // }
 
-  componentDidUpdate() {
-    console.log('componentDidUpdate');
-  }
+  // componentDidUpdate() {
+  //   console.log('componentDidUpdate');
+  // }
 
   // Deprecated
   // componentWillUpdate() {
@@ -28,20 +36,22 @@ export default class Test extends Component {
   //   console.log('componentWillReceiveProps...');
   // }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    return {
-      test: 'something'
-    };
-  }
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   return {
+  //     test: 'something'
+  //   };
+  // }
 
-  getSnapshotBeforeUpdate(prevProps, prevState) {
-    console.log('getSnapshotBeforeUpdate...');
-  }
+  // getSnapshotBeforeUpdate(prevProps, prevState) {
+  //   console.log('getSnapshotBeforeUpdate...');
+  // }
 
   render() {
+    const { title, body } = this.state;
     return (
       <div>
-        <h1>Test COmponent</h1>
+        <h1>{title}</h1>
+        <p>{body}</p>
       </div>
     );
   }
