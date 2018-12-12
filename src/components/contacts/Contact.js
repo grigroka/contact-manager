@@ -9,8 +9,13 @@ export default class Contact extends Component {
   };
 
   onDeleteClick = async (id, dispatch) => {
-    await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`);
-    dispatch({ type: 'DELETE_CONTACT', payload: id });
+    // Try/catch only to fix an error while deleting unpersisted jsonplaceholder object. Unnecessary in app with real DB
+    try {
+      await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`);
+      dispatch({ type: 'DELETE_CONTACT', payload: id });
+    } catch (e) {
+      dispatch({ type: 'DELETE_CONTACT', payload: id });
+    }
   };
 
   render() {
