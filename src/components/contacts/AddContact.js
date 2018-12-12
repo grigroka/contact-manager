@@ -33,6 +33,9 @@ export default class AddContact extends Component {
     dispatch({ type: 'ADD_CONTACT', payload: newContact });
     // Clear state
     this.setState({ name: '', email: '', phone: '', errors: {} });
+
+    // Redirect to homepage
+    this.props.history.push('/');
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
